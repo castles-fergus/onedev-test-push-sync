@@ -1,0 +1,17 @@
+version: 25
+jobs:
+- name: Push
+  steps:
+  - !PushRepository
+    name: push
+    remoteUrl: https://github.com/castles-fergus/onedev-test-push-sync
+    passwordSecret: access-token
+    force: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !TagCreateTrigger {}
+  - !BranchUpdateTrigger {}
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 3600
